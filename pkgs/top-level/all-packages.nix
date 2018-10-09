@@ -2969,6 +2969,11 @@ with pkgs;
     inherit (darwin.apple_sdk.frameworks) Security;
   };
 
+  kill-desktop = callPackage ../tools/misc/kill-desktop {
+    #inherit (xorg) libxcb;
+  };
+  #kill-desktop = callPackage ../tools/misc/kill-desktop;
+
   grive2 = callPackage ../tools/filesystems/grive2 { };
 
   groff = callPackage ../tools/text/groff {
