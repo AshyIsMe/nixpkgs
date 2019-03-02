@@ -1,0 +1,50 @@
+<chapter xmlns="http://docbook.org/ns/docbook"
+         xmlns:xlink="http://www.w3.org/1999/xlink"
+         xmlns:xi="http://www.w3.org/2001/XInclude"
+         version="5.0"
+         xml:id="sec-wayland">
+ <title>Wayland Compositors</title>
+ <para>
+  Wayland is a protocol for a compositor to talk to its clients as well as a C library implementation of that protocol. 
+  The compositor can be a standalone display server running on Linux kernel modesetting and evdev input devices, an X application, or a wayland client itself. 
+  The clients can be traditional applications, X servers (rootless or fullscreen) or other display servers.
+ </para>
+ <para>
+  You need to enable a wayland compositor.
+  Thus you should pick one or more of the following sections:
+<programlisting>
+<xref linkend="opt-programs.sway.enable"/> = true;
+<xref linkend="opt-programs.sway-beta.enable"/> = true;
+<xref linkend="opt-services.xserver.desktopManager.plasma5.enable"/> = true; # TODO
+<xref linkend="opt-services.xserver.desktopManager.gnome3.enable"/> = true; # TODO
+</programlisting>
+ </para>
+ 
+ 
+ <simplesect xml:id="sec-wayland-sway-compositor">
+  <title>Sway compositor</title>
+  <para>
+    Sway is a tiling Wayland compositor and a drop-in replacement for the i3 window manager for X11. It works with your existing i3 configuration and supports most of i3's features, plus a few extras.
+    You can enable it as follows:
+<programlisting>
+<xref linkend="opt-programs.sway.enable"/> = true;
+# <xref linkend="opt-programs.sway-beta.enable"/> = true;
+</programlisting>
+  </para>
+ <para>
+  Sway can then be started manually:
+<screen>
+$ sway
+</screen>
+ </para>
+ </simplesect>
+ <simplesect xml:id="sec-wayland-gnome3-compositor">
+  <title>Gnome on wayland</title>
+  <para>
+    TODO
+<programlisting>
+<xref linkend="opt-services.xserver.desktopManager.gnome3.enable"/> = true; # TODO
+</programlisting>
+  </para>
+ </simplesect>
+</chapter>
