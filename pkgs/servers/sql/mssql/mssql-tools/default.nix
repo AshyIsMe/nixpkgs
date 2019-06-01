@@ -10,7 +10,7 @@ let
       inherit sha256;
     };
 
-    buildInputs = [ pkgs.unixODBC pkgs.unixODBCDrivers.msodbcsql17 ];
+    buildInputs = [ pkgs.unixODBC pkgs.unixODBCDrivers.msodbcsql17 pkgs.libuuid ];
     nativeBuildInputs = [ pkgs.dpkg ];
 
     unpackPhase = ''
@@ -21,6 +21,8 @@ let
 
     doConfigure = false;
 
+    libpath = lib.makeLibraryPath [ stdenv.cc.cc stdenv.cc.libc pkgs.unixODBC pkgs.unixODBCDrivers.msodbcsql17 pkgs.libuuid ];
+
     installPhase = ''
       runHook preInstall
 
@@ -30,6 +32,16 @@ let
       cp -ar ./usr $out
       cd ./opt/mssql-tools
       cp -ar bin share $out
+
+      patchelf \
+      --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) \
+      --set-rpath "${libpath}" \
+      "$out/bin/sqlcmd"
+
+      patchelf \
+      --set-interpreter $(cat ${stdenv.cc}/nix-support/dynamic-linker) \
+      --set-rpath "${libpath}" \
+      "$out/bin/bcp"
 
       runHook postInstall
     '';
