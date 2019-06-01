@@ -464,6 +464,11 @@
     github = "ashgillman";
     name = "Ashley Gillman";
   };
+  ashyisme = {
+    email = "aaron.ash@gmail.com";
+    github = "ashyisme";
+    name = "Aaron Ash";
+  };
   aske = {
     email = "aske@fmap.me";
     github = "aske";
