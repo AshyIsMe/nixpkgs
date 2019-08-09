@@ -1,5 +1,9 @@
 { stdenv, pkgs, lib, fetchurl }:
 
+
+# Don't forget to set the following in your /etc/configuration.nix
+# environment.unixODBCDrivers =  [ pkgs.unixODBCDrivers.msodbcsql17 ];
+
 let
   generic = { version, sha256, suffix ? "" }:
   stdenv.mkDerivation rec {
