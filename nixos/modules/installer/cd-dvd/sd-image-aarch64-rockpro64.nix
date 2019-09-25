@@ -8,10 +8,13 @@ let
       pkgs = pkgs.buildPackages;
     };
 
-  pkgsAarch64LinuxCross = self.forceCross {
-    system = "x86_64-linux";
-    platform = systems.platforms.pc64;
-  } systems.examples.aarch64-multiplatform;
+  # It might be possible to crosscompile everything. 
+  # See lopsided98's nixpkgs fork master-custom branch:
+  # https://github.com/lopsided98/nixpkgs/commit/b7b55f61cda24de3de3a6346c8c2b666e8fec094
+  # pkgsAarch64LinuxCross = self.forceCross {
+  #   system = "x86_64-linux";
+  #   platform = systems.platforms.pc64;
+  # } systems.examples.aarch64-multiplatform;
 
   linux_rock64_5_3 = pkgs.callPackage ./linux-rock64/5.3.nix {
     kernelPatches = [ pkgs.kernelPatches.bridge_stp_helper ];
@@ -33,7 +36,8 @@ in
       generic-extlinux-compatible.enable = true;
     };
     #kernelPackages = lib.mkForce pkgs.pkgsAarch64LinuxCross.linuxPackages_rock64_5_3;
-    kernelPackages = lib.mkForce pkgsAarch64LinuxCross.linuxPackages_rock64_5_3;
+    #kernelPackages = lib.mkForce pkgsAarch64LinuxCross.linuxPackages_rock64_5_3;
+    kernelPackages = linuxPackages_rock64_5_3;
   };
 
   boot.consoleLogLevel = lib.mkDefault 7;
