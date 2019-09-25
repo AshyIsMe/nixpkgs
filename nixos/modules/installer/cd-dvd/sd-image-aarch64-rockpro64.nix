@@ -1,6 +1,6 @@
 # To build, use:
 # nix-build nixos -I nixos-config=nixos/modules/installer/cd-dvd/sd-image-aarch64.nix -A config.system.build.sdImage
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, systems, ... }:
 
 let
   extlinux-conf-builder =
@@ -13,11 +13,11 @@ let
     platform = systems.platforms.pc64;
   } systems.examples.aarch64-multiplatform;
 
-  linux_rock64_5_3 = self.callPackage ./linux-rock64/5.3.nix {
-    kernelPatches = [ self.kernelPatches.bridge_stp_helper ];
+  linux_rock64_5_3 = pkgs.callPackage ./linux-rock64/5.3.nix {
+    kernelPatches = [ pkgs.kernelPatches.bridge_stp_helper ];
   };
 
-  linuxPackages_rock64_5_3 = self.recurseIntoAttrs (self.linuxPackagesFor self.linux_rock64_5_3);
+  linuxPackages_rock64_5_3 = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_rock64_5_3);
 
 in
 {
@@ -32,7 +32,8 @@ in
       grub.enable = false;
       generic-extlinux-compatible.enable = true;
     };
-    kernelPackages = lib.mkForce pkgs.pkgsAarch64LinuxCross.linuxPackages_rock64_5_3;
+    #kernelPackages = lib.mkForce pkgs.pkgsAarch64LinuxCross.linuxPackages_rock64_5_3;
+    kernelPackages = lib.mkForce pkgsAarch64LinuxCross.linuxPackages_rock64_5_3;
   };
 
   boot.consoleLogLevel = lib.mkDefault 7;
