@@ -16,10 +16,14 @@ let
   #   platform = systems.platforms.pc64;
   # } systems.examples.aarch64-multiplatform;
 
+  linux_rock64_4_20 = pkgs.callPackage ./linux-rock64/4.20.nix {
+    kernelPatches = [ pkgs.kernelPatches.bridge_stp_helper ];
+  };
   linux_rock64_5_3 = pkgs.callPackage ./linux-rock64/5.3.nix {
     kernelPatches = [ pkgs.kernelPatches.bridge_stp_helper ];
   };
 
+  linuxPackages_rock64_4_20 = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_rock64_4_20);
   linuxPackages_rock64_5_3 = pkgs.recurseIntoAttrs (pkgs.linuxPackagesFor linux_rock64_5_3);
 
 in
@@ -36,8 +40,8 @@ in
       generic-extlinux-compatible.enable = true;
     };
     #kernelPackages = lib.mkForce pkgs.pkgsAarch64LinuxCross.linuxPackages_rock64_5_3;
-    #kernelPackages = lib.mkForce pkgsAarch64LinuxCross.linuxPackages_rock64_5_3;
-    kernelPackages = linuxPackages_rock64_5_3;
+    #kernelPackages = linuxPackages_rock64_5_3;
+    kernelPackages = linuxPackages_rock64_4_20;
   };
 
   boot.consoleLogLevel = lib.mkDefault 7;
