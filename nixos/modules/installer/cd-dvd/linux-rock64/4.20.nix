@@ -4,7 +4,7 @@ with lib;
 
 buildLinux (args // rec {
   name = "linux-rock64";
-  version = "4.20";
+  version = "4.20.6";
 
   # modDirVersion needs to be x.y.z, will automatically add .0 if needed
   modDirVersion = concatStrings (intersperse "." (take 3 (splitString "." "${version}.0")));
