@@ -1,17 +1,9 @@
-{ stdenv, fetchFromGitHub, qmake, qtbase, qtwebengine, hicolor-icon-theme, makeDesktopItem }:
+{ lib, mkDerivation, fetchFromGitHub, qmake, qtbase, qtwebengine, hicolor-icon-theme }:
 
 let
   description = "A note-taking application that knows programmers and Markdown better";
-  desktopItem = makeDesktopItem {
-    name = "VNote";
-    exec = "vnote";
-    icon = "vnote";
-    comment = description;
-    desktopName = "VNote";
-    categories = "Office";
-  };
-in stdenv.mkDerivation rec {
-  version = "2.5";
+in mkDerivation rec {
+  version = "2.7.2";
   pname = "vnote";
 
   src = fetchFromGitHub {
@@ -19,13 +11,13 @@ in stdenv.mkDerivation rec {
     repo = "vnote";
     fetchSubmodules = true;
     rev = "v${version}";
-    sha256 = "17nl4z1k24wfl18f6fxs2chsmxc2526ckn5pddi2ckirbiwqwm60";
+    sha256 = "0mk1ingcyznpwq4bfkxa8nx9yx5y3kgsmr4qffriq7bh1cx9dwjy";
   };
 
   nativeBuildInputs = [ qmake ];
   buildInputs = [ qtbase qtwebengine hicolor-icon-theme ];
 
-  meta = with stdenv.lib; {
+  meta = with lib; {
     inherit description;
     homepage = "https://tamlok.github.io/vnote";
     license = licenses.mit;

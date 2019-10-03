@@ -1,6 +1,7 @@
 { stdenv
 , buildPythonPackage
 , fetchPypi
+, fetchpatch
 , openssl
 , cryptography_vectors
 , darwin
@@ -21,11 +22,11 @@
 
 buildPythonPackage rec {
   pname = "cryptography";
-  version = "2.6.1"; # Also update the hash in vectors.nix
+  version = "2.7"; # Also update the hash in vectors.nix
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "19iwz5avym5zl6jrrrkym1rdaa9h61j20ph4cswsqgv8xg5j3j16";
+    sha256 = "1inlnr36kl36551c9rcad99jmhk81v33by3glkadwdcgmi17fd76";
   };
 
   outputs = [ "out" "dev" ];
@@ -49,9 +50,17 @@ buildPythonPackage rec {
     pytz
   ];
 
+  # remove when https://github.com/pyca/cryptography/issues/4998 is fixed
   checkPhase = ''
-    py.test --disable-pytest-warnings tests
+    py.test --disable-pytest-warnings tests -k 'not load_ecdsa_no_named_curve'
   '';
+
+  patches = [
+    (fetchpatch {
+      url = "https://github.com/pyca/cryptography/commit/e575e3d482f976c4a1f3203d63ea0f5007a49a2a.patch";
+      sha256 = "0vg9prqsizd6gzh5j7lscsfxzxlhz7pacvzhgqmj1vhdhjwbblcp";
+    })
+  ];
 
   # IOKit's dependencies are inconsistent between OSX versions, so this is the best we
   # can do until nix 1.11's release

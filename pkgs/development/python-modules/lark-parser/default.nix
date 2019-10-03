@@ -1,18 +1,17 @@
 { lib
 , buildPythonPackage
 , fetchFromGitHub
-, python
 }:
 
 buildPythonPackage rec {
   pname = "lark-parser";
-  version = "0.7.0";
+  version = "0.7.5";
 
   src = fetchFromGitHub {
     owner = "lark-parser";
     repo = "lark";
     rev = version;
-    sha256 = "1zynj09w361yvbxr4hir681dfnlq1hzniws9dzgmlkvd6jnhjgx3";
+    sha256 = "1k9s62ddv6pghzp1yak2ld6sk92zm4sz1xqp8zkzyh3xqdsmfa0f";
   };
 
   # tests of Nearley support require js2py

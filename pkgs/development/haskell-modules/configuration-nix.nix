@@ -53,7 +53,7 @@ self: super: builtins.intersectAttrs super {
 
   # Use the default version of mysql to build this package (which is actually mariadb).
   # test phase requires networking
-  mysql = dontCheck (super.mysql.override { mysql = pkgs.mysql.connector-c; });
+  mysql = dontCheck (super.mysql.override { mysql = pkgs.libmysqlclient; });
 
   # CUDA needs help finding the SDK headers and libraries.
   cuda = overrideCabal super.cuda (drv: {
@@ -94,7 +94,12 @@ self: super: builtins.intersectAttrs super {
   # Won't find it's header files without help.
   sfml-audio = appendConfigureFlag super.sfml-audio "--extra-include-dirs=${pkgs.openal}/include/AL";
 
-  cachix = enableSeparateBinOutput super.cachix;
+  # profiling is disabled to allow C++/C mess to work, which is fixed in GHC 8.8
+  cachix = disableLibraryProfiling super.cachix;
+
+  niv = enableSeparateBinOutput super.niv;
+
+  ghcid = enableSeparateBinOutput super.ghcid;
 
   hzk = overrideCabal super.hzk (drv: {
     preConfigure = "sed -i -e /include-dirs/d hzk.cabal";
@@ -279,9 +284,7 @@ self: super: builtins.intersectAttrs super {
       let dontCheckDarwin = if pkgs.stdenv.isDarwin
                             then dontCheck
                             else pkgs.lib.id;
-      in dontCheckDarwin (super.llvm-hs.override {
-        llvm-config = pkgs.llvm_6;
-      });
+      in dontCheckDarwin (super.llvm-hs.override { llvm-config = pkgs.llvm_8; });
 
   # Needs help finding LLVM.
   spaceprobe = addBuildTool super.spaceprobe self.llvmPackages.llvm;
@@ -491,7 +494,11 @@ self: super: builtins.intersectAttrs super {
   servant-streaming-server = dontCheck super.servant-streaming-server;
 
   # https://github.com/haskell-servant/servant/pull/1128
-  servant-client-core = appendPatch super.servant-client-core ./patches/servant-client-core-streamBody.patch;
+  servant-client-core = if (pkgs.lib.getVersion super.servant-client-core) == "0.15" then
+    appendPatch super.servant-client-core ./patches/servant-client-core-streamBody.patch
+  else
+    super.servant-client-core;
+
 
   # tests run executable, relying on PATH
   # without this, tests fail with "Couldn't launch intero process"
@@ -500,6 +507,12 @@ self: super: builtins.intersectAttrs super {
       export PATH="$PWD/dist/build/intero:$PATH"
     '';
   });
+
+  # Break infinite recursion cycle between QuickCheck and splitmix.
+  splitmix = dontCheck super.splitmix;
+
+  # Break infinite recursion cycle between tasty and clock.
+  clock = dontCheck super.clock;
 
   # loc and loc-test depend on each other for testing. Break that infinite cycle:
   loc-test = super.loc-test.override { loc = dontCheck self.loc; };
@@ -521,10 +534,6 @@ self: super: builtins.intersectAttrs super {
   LDAP = dontCheck (overrideCabal super.LDAP (drv: {
     librarySystemDepends = drv.librarySystemDepends or [] ++ [ pkgs.cyrus_sasl.dev ];
   }));
-
-  # Doctests hang only when compiling with nix.
-  # https://github.com/cdepillabout/termonad/issues/15
-  termonad = dontCheck super.termonad;
 
   # Expects z3 to be on path so we replace it with a hard
   sbv = overrideCabal super.sbv (drv: {
@@ -569,4 +578,21 @@ self: super: builtins.intersectAttrs super {
   # Avoid infitite recursion with tonatona.
   tonaparser = dontCheck super.tonaparser;
 
+  # Needs internet to run tests
+  HTTP = dontCheck super.HTTP;
+
+  # Break infinite recursions.
+  Dust-crypto = dontCheck super.Dust-crypto;
+  nanospec = dontCheck super.nanospec;
+  options = dontCheck super.options;
+  snap-server = dontCheck super.snap-server;
+
+  # Tests require internet
+  http-download = dontCheck super.http-download;
+  pantry = dontCheck super.pantry;
+
+  # Hadolint wants to build a statically linked binary by default.
+  hadolint = overrideCabal super.hadolint (drv: {
+    preConfigure = "sed -i -e /ld-options:/d hadolint.cabal";
+  });
 }

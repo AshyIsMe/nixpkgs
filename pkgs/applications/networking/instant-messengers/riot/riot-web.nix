@@ -3,20 +3,23 @@
 # Note for maintainers:
 # Versions of `riot-web` and `riot-desktop` should be kept in sync.
 
-let configFile = writeText "riot-config.json" conf; in
 stdenv.mkDerivation rec {
-  name= "riot-web-${version}";
-  version = "1.1.0";
+  pname = "riot-web";
+  version = "1.4.1";
 
   src = fetchurl {
     url = "https://github.com/vector-im/riot-web/releases/download/v${version}/riot-v${version}.tar.gz";
-    sha256 = "14ap57hv1c5nh17771l39inpa5yacpyckzqcmjlbrb57illakwrd";
+    sha256 = "16lgxyqxs6vpjcfdr4j7gnn7h8gyi6b5520b8nq8hxynh24iyhcq";
   };
 
-  installPhase = ''
+  installPhase = let
+    configFile = if (conf != null)
+      then writeText "riot-config.json" conf
+      else "$out/config.sample.json";
+  in ''
     mkdir -p $out/
     cp -R . $out/
-    ${lib.optionalString (conf != null) "ln -s ${configFile} $out/config.json"}
+    ln -s ${configFile} $out/config.json
   '';
 
   meta = {

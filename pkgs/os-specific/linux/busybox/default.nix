@@ -47,7 +47,7 @@ stdenv.mkDerivation rec {
 
   patches = [
     ./busybox-in-store.patch
-  ] ++ stdenv.lib.optional (stdenv.hostPlatform != stdenv.targetPlatform) ./clang-cross.patch;
+  ] ++ stdenv.lib.optional (stdenv.hostPlatform != stdenv.buildPlatform) ./clang-cross.patch;
 
   postPatch = "patchShebangs .";
 
@@ -88,13 +88,9 @@ stdenv.mkDerivation rec {
     runHook postConfigure
   '';
 
-  postConfigure = lib.optionalString useMusl ''
-    makeFlagsArray+=("CC=${stdenv.cc.targetPrefix}cc -isystem ${musl.dev}/include -B${musl}/lib -L${musl}/lib")
-  '';
-
   depsBuildBuild = [ buildPackages.stdenv.cc ];
 
-  buildInputs = lib.optionals (enableStatic && !useMusl) [ stdenv.cc.libc stdenv.cc.libc.static ];
+  buildInputs = lib.optionals (enableStatic && !useMusl && stdenv.cc.libc ? static) [ stdenv.cc.libc stdenv.cc.libc.static ];
 
   enableParallelBuilding = true;
 

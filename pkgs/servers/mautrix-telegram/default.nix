@@ -4,11 +4,11 @@ with python3.pkgs;
 
 buildPythonPackage rec {
   pname = "mautrix-telegram";
-  version = "0.5.1";
+  version = "0.6.1";
 
   src = fetchPypi {
     inherit pname version;
-    sha256 = "51951845e52c4ca5410e0f4a51d99014dd6df2fcedfca8b7241e045359cbf112";
+    sha256 = "1lsi6x5yr8f9yjxsh1rmcd6wnxr6s6rpr720lg7sq629m42d9p1d";
   };
 
   postPatch = ''
@@ -28,6 +28,7 @@ buildPythonPackage rec {
     telethon-session-sqlalchemy
     pillow
     lxml
+    setuptools
   ];
 
   # `alembic` (a database migration tool) is only needed for the initial setup,
