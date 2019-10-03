@@ -15011,6 +15011,8 @@ in
 
   mssql_jdbc = callPackage ../servers/sql/mssql/jdbc { };
 
+  mssql = callPackage ../servers/sql/mssql { };
+
   mssql-tools = callPackage ../servers/sql/mssql/mssql-tools { };
 
   miniflux = callPackage ../servers/miniflux { };
