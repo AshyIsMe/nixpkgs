@@ -1,4 +1,4 @@
-{ stdenv, pkgs, lib, fetchurl }:
+{ stdenv, pkgs, lib, fetchurl, callPackage }:
 
 # AA TODO: builds but $out/bin/mssql-conf fails to run
 
@@ -21,7 +21,7 @@ let
 
       buildInputs = [
         pkgs.python2
-        pkgs.protobuf
+        pkgs.protobuf3_5
         pkgs.unixODBC
         pkgs.unixODBCDrivers.msodbcsql17
       ];
@@ -54,7 +54,7 @@ let
         pkgs.openldap
         pkgs.openssl
         pkgs.pam
-        pkgs.protobuf
+        pkgs.protobuf3_5  # Required reverting commit 9702cd1acf5cc8e202cd59b5d597bbcc2674c45c
         pkgs.sssd
         pkgs.unixODBC
         pkgs.unixODBCDrivers.msodbcsql17
@@ -91,6 +91,7 @@ let
         runHook postInstall
       '';
 
+      # AA TODO - force amd64 only properly
       meta = with stdenv.lib; {
         homepage =
           "https://docs.microsoft.com/en-us/sql/linux/sql-server-linux-setup-tools";
@@ -105,9 +106,14 @@ let
 in rec {
 
   mssql-server = generic {
+    version = "14.0.3238.1";
+    suffix = "-19";
+    sha256 = "16yv48i5jsqccmy4iyyvj0gzs94nr4lh3l9gqwklc672p9bpmpiw";
+  };
+
+  mssql-server_14_0_3162 = generic {
     version = "14.0.3162.1";
     suffix = "-1";
     sha256 = "1v0yili5zh0ag0bvsr271lcqxbm3yidvwaqbs41qg7hkyzglf8iy";
   };
-
 }
