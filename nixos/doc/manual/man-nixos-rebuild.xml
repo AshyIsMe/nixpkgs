@@ -56,6 +56,9 @@
    <arg>
     <option>--upgrade</option>
    </arg>
+   <arg>
+    <option>--upgrade-all</option>
+   </arg>
 
    <arg>
     <option>--install-bootloader</option>
@@ -327,6 +330,17 @@
     <listitem>
      <para>
       Fetch the latest version of NixOS from the NixOS channel.
+     </para>
+    </listitem>
+   </varlistentry>
+
+   <varlistentry>
+    <term>
+     <option>--upgrade-all</option>
+    </term>
+    <listitem>
+     <para>
+      Fetch the latest version of all subscribed channels.
      </para>
     </listitem>
    </varlistentry>

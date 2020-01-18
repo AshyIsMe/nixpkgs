@@ -18,6 +18,7 @@ buildNix=1
 fast=
 rollback=
 upgrade=
+upgradeAll=
 repair=
 profile=/nix/var/nix/profiles/system
 buildHost=
@@ -49,6 +50,9 @@ while [ "$#" -gt 0 ]; do
         ;;
       --upgrade)
         upgrade=1
+        ;;
+      --upgrade-all)
+        upgradeAll=1
         ;;
       --repair)
         repair=1
@@ -210,6 +214,11 @@ if [ -n "$upgrade" -a -z "$_NIXOS_REBUILD_REEXEC" ]; then
             nix-channel --update "$(basename "$channelpath")"
         fi
     done
+fi
+
+# If ‘--upgrade-all’ is given, run ‘nix-channel --update’.
+if [ -n "$upgradeAll" -a -z "$_NIXOS_REBUILD_REEXEC" ]; then
+    nix-channel --update
 fi
 
 # Make sure that we use the Nix package we depend on, not something
