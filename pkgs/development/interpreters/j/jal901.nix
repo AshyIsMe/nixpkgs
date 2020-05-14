@@ -151,6 +151,11 @@ in {
     version = "1.0.20";
     sha256 = "18y6k97wgw8i99j865s9b96isg31g21zwi8smh11kr5hjjbfwbyj";
   };
+  "demos_wd" = buildJAddonJAL { 
+    name = "demos_wd";
+    version = "1.0.143";
+    sha256 = "15156nrdqr4aiz110a86q76134mw18d0y0r2c2qlkfnqck5pcch1";
+  };
   "demos_wdplot" = buildJAddonJAL { 
     name = "demos_wdplot";
     version = "1.0.50";
@@ -201,6 +206,11 @@ in {
     version = "0.0.9";
     sha256 = "0g55w8yy2a1pxcb4cfqlavfwzpmxadx7yvg0n6b4flhkxpqhrrkf";
   };
+  "format_zulu" = buildJAddonJAL { 
+    name = "format_zulu";
+    version = "0.0.13";
+    sha256 = "17z4v7hg18nd8jb35c5m4cjglvkpji5j1gjhi9cznn6xck10659p";
+  };
   "format_zulu-bare" = buildJAddonJAL { 
     name = "format_zulu-bare";
     version = "0.0.12";
@@ -218,8 +228,8 @@ in {
   };
   "games_bagofnouns" = buildJAddonJAL { 
     name = "games_bagofnouns";
-    version = "1.0.81";
-    sha256 = "0flgvrp507flcl1pgw0civ5b6j37yyp8sjk6hydgxk6x7ns6yr4a";
+    version = "1.0.86";
+    sha256 = "0fvjb9xmvqp3mz8hqmhn5d0dgcif5yawa4zn27cj4khn0lfxsi0l";
   };
   "games_minesweeper" = buildJAddonJAL { 
     name = "games_minesweeper";
@@ -255,6 +265,11 @@ in {
     name = "general_inifiles";
     version = "1.0.15";
     sha256 = "19lfk2hs9jffym5s087av8sr76zhsp3lf52z82a56xfh854ajfbc";
+  };
+  "general_jod" = buildJAddonJAL { 
+    name = "general_jod";
+    version = "1.0.1";
+    sha256 = "1815r36zig4ll89i3d7747k5md0bq6xzxsdwg8gs5p6x280l5lnx";
   };
   "general_joddocument" = buildJAddonJAL { 
     name = "general_joddocument";
@@ -320,6 +335,11 @@ in {
     name = "graphics_gnuplot";
     version = "1.0.7";
     sha256 = "1rbx4z9h7kjhhv050ra0qxfklhz3id6j3nkmhgxrjxk17fx8v8s8";
+  };
+  "graphics_graph" = buildJAddonJAL { 
+    name = "graphics_graph";
+    version = "1.0.23";
+    sha256 = "1dawskil0jnfjqqcfnsj23p1dkmdm9agsmy32y5vmkmfwgxvj6jd";
   };
   "graphics_graphviz" = buildJAddonJAL { 
     name = "graphics_graphviz";
@@ -526,6 +546,11 @@ in {
     version = "1.0.4";
     sha256 = "1jqdqwrb9kh2s4rh0q1ffmrqsv3s6svnjqqkn1l3crgsdr7inpig";
   };
+  "stats_r" = buildJAddonJAL { 
+    name = "stats_r";
+    version = "1.0.34";
+    sha256 = "15pjh5hirr2vipnb1bdw1pzfnkcnkkmj84v50cpwjfc32vbyw1y8";
+  };
   "stats_rlibrary" = buildJAddonJAL { 
     name = "stats_rlibrary";
     version = "1.0.8";
@@ -703,6 +728,11 @@ in {
     version = "1.0.20";
     sha256 = "0f0rg2vmzz3kqjfch478mfxssl6fydl9h4q7mpqyn587qc79smv0";
   };
+  "demos_wd" = buildJAddonJAL { 
+    name = "demos_wd";
+    version = "1.0.143";
+    sha256 = "02aazjn6pyscmgja6gpghrdfb5pfa8l3cwk1qrzjc94kl3a5l7kb";
+  };
   "demos_wdplot" = buildJAddonJAL { 
     name = "demos_wdplot";
     version = "1.0.50";
@@ -753,6 +783,11 @@ in {
     version = "0.0.9";
     sha256 = "0zi0ppib3akhp9lmk7d6xc2lrvzsrgqzr0ir7z241ci9kw2dzs63";
   };
+  "format_zulu" = buildJAddonJAL { 
+    name = "format_zulu";
+    version = "0.0.13";
+    sha256 = "1nfl43qfwqafqwgkqk9bs5k1srym065aq0s9vb65czkb7b21bqbs";
+  };
   "format_zulu-bare" = buildJAddonJAL { 
     name = "format_zulu-bare";
     version = "0.0.12";
@@ -770,8 +805,8 @@ in {
   };
   "games_bagofnouns" = buildJAddonJAL { 
     name = "games_bagofnouns";
-    version = "1.0.81";
-    sha256 = "03c7r2wq1bq7zxjprdgbsw9zjlv1sx3m6vyhwkib1sxsy8gl9a9c";
+    version = "1.0.86";
+    sha256 = "0c0v1hi2lgkz73bfbkcsww26ifvnmv5gmn4j4jyrqaf1q8z67pc4";
   };
   "games_minesweeper" = buildJAddonJAL { 
     name = "games_minesweeper";
@@ -807,6 +842,11 @@ in {
     name = "general_inifiles";
     version = "1.0.15";
     sha256 = "0mpgf64f3s1ml24m9z4snj3lxjm27ikb0j5h3v06z6cvg29i5sms";
+  };
+  "general_jod" = buildJAddonJAL { 
+    name = "general_jod";
+    version = "1.0.1";
+    sha256 = "1x2ii6y64lxjm0w0j3kblgbf4fpz3qfzw062g8yfxc5smgdnd86z";
   };
   "general_joddocument" = buildJAddonJAL { 
     name = "general_joddocument";
@@ -867,6 +907,11 @@ in {
     name = "graphics_gnuplot";
     version = "1.0.7";
     sha256 = "13qj7r4zdabr4ks0sqrinlkjvx0m7xk3829hvpfln04gnd2zh9nv";
+  };
+  "graphics_graph" = buildJAddonJAL { 
+    name = "graphics_graph";
+    version = "1.0.23";
+    sha256 = "1wi4wmql67a8d1pgvg91v4dlfdx41iadq8pgxijp49iybmi345hr";
   };
   "graphics_graphviz" = buildJAddonJAL { 
     name = "graphics_graphviz";
@@ -1062,6 +1107,11 @@ in {
     name = "stats_jserver4r";
     version = "1.0.4";
     sha256 = "07j3jk1vdy03zp413bds36mx654di11msi8lib03bjp28hs9v0kd";
+  };
+  "stats_r" = buildJAddonJAL { 
+    name = "stats_r";
+    version = "1.0.34";
+    sha256 = "1dbj5sfk2pmqbac2rrjs0rk9n4gz4cggzvxnfrjj6s1k9ka3psly";
   };
   "stats_rlibrary" = buildJAddonJAL { 
     name = "stats_rlibrary";

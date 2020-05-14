@@ -69,7 +69,7 @@ filter_latest_packages() {
   # $1 should be a filename
   sort -t'_' -k3 -nr "$1" -o "$1"
   # pipe unique package names into xargs grep
-  cut -d '_' -f1,2 < "$1" | sort -u | xargs -n1 -i grep -m 1 -e "{}" "$1" | sort -u
+  cut -d '_' -f1,2 < "$1" | sort -u | xargs -n1 -i grep -m 1 -e "{}_" "$1" | sort -u
 }
 
 TMP_FILE="$(mktemp)"
