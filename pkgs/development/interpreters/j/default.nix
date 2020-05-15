@@ -9,6 +9,10 @@ let
   buildJAddonGitHub = callPackage ./build-j-addon-github.nix { };
 
   # TODO: Add propagatedBuildInputs for dependencies.
+  # TODO: Handle the withAddons/withExtraLibs/withCommunityAddons arguments
+  # TODO: Declare various j/jal versions similar to python38, python39 etc
+
+
   # Collect all addons propagatedBuildInputs in to the j package
   #  #github:cdburke/data_sqlite
   # data_sqlite = buildJAddonGitHub {
