@@ -1,4 +1,5 @@
 { stdenv, lib, fetchFromGitHub, readline, libedit, bc, pkgs, callPackage
+, avxSupport ? false
 , withAddons ? [ ]
 # use withExtraLibs to add additional dependencies of community modules
 , withExtraLibs ? [ ]
@@ -48,6 +49,9 @@ in stdenv.mkDerivation rec {
     "darwin"
   else
     "unknown";
+  variant = if stdenv.isx86_64 && avxSupport then "avx" else "";
+
+  j64x="j${bits}${variant}";
 
   doCheck = true;
 
@@ -63,7 +67,7 @@ in stdenv.mkDerivation rec {
     patchShebangs .
     sed -i $JLIB/bin/profile.ijs -e "s@'/usr/share/j/.*'@'$out/share/j'@;"
 
-    ./build_all.sh
+    j64x="${j64x}" ./build_all.sh
 
     cp $SOURCE_DIR/bin/${platform}/j${bits}*/* "$JLIB/bin"
   '';

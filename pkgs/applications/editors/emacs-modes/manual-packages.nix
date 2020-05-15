@@ -65,10 +65,10 @@
     };
   };
 
+  emacspeak = callPackage ./emacspeak {};
+
   ess-R-object-popup =
     callPackage ./ess-R-object-popup { };
-
-  filesets-plus = callPackage ./filesets-plus { };
 
   font-lock-plus = callPackage ./font-lock-plus { };
 
@@ -109,16 +109,7 @@
     };
   };
 
-  hexrgb = callPackage ./hexrgb { };
-
-  header2 = callPackage ./header2 { };
-
   helm-words = callPackage ./helm-words { };
-
-  icicles = callPackage ./icicles { };
-
-  lib-requires =
-    callPackage ./lib-requires { };
 
   org-mac-link =
     callPackage ./org-mac-link { };
@@ -134,11 +125,7 @@
 
   sv-kalender = callPackage ./sv-kalender { };
 
-  thingatpt-plus = callPackage ./thingatpt-plus { };
-
   tramp = callPackage ./tramp { };
-
-  yaoddmuse = callPackage ./yaoddmuse { };
 
   zeitgeist = callPackage ./zeitgeist { };
 
@@ -148,7 +135,6 @@
   colorThemeSolarized = callPackage ./color-theme-solarized { };
   emacsSessionManagement = callPackage ./session-management-for-emacs { };
   hsc3-mode = callPackage ./hsc3 { };
-  hol_light_mode = callPackage ./hol_light { };
   ido-ubiquitous = callPackage ./ido-ubiquitous { };
   ocaml-mode = callPackage ./ocaml { };
   prolog-mode = callPackage ./prolog { };
