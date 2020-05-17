@@ -531,9 +531,9 @@ in {
   };
   "demos_qtdemo" = buildJAddonJAL { 
     name = "demos_qtdemo";
-    version = "1.0.20";
+    version = "1.0.21";
     platform = "linux";
-    sha256 = "18y6k97wgw8i99j865s9b96isg31g21zwi8smh11kr5hjjbfwbyj";
+    sha256 = "1gm5gcq84awa0kp1qiizcff1yyyw77snfmhwh1cs2cmap66fisp5";
   };
   "demos_wd" = buildJAddonJAL { 
     name = "demos_wd";
@@ -1537,9 +1537,9 @@ in {
   };
   "demos_qtdemo" = buildJAddonJAL { 
     name = "demos_qtdemo";
-    version = "1.0.20";
+    version = "1.0.21";
     platform = "darwin";
-    sha256 = "0f0rg2vmzz3kqjfch478mfxssl6fydl9h4q7mpqyn587qc79smv0";
+    sha256 = "1pvnm5mragax83xa45h38idrnpw565rpsfbdx2dbman0rx1ixv5i";
   };
   "demos_wd" = buildJAddonJAL { 
     name = "demos_wd";
