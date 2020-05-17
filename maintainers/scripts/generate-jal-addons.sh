@@ -76,8 +76,14 @@ TMP_FILE="$(mktemp)"
 echo "$tarballs" | sed 's/ /\n/g' | grep "linux.tar.gz" > "$TMP_FILE"
 latest_linux_tarballs=$(filter_latest_packages "$TMP_FILE")
 
+echo "$tarballs" | sed 's/ /\n/g' | grep "linux64.tar.gz" > "$TMP_FILE"
+latest_linux64_tarballs=$(filter_latest_packages "$TMP_FILE")
+
 echo "$tarballs" | sed 's/ /\n/g' | grep "darwin.tar.gz" > "$TMP_FILE"
 latest_darwin_tarballs=$(filter_latest_packages "$TMP_FILE")
+
+echo "$tarballs" | sed 's/ /\n/g' | grep "darwin64.tar.gz" > "$TMP_FILE"
+latest_darwin64_tarballs=$(filter_latest_packages "$TMP_FILE")
 
 sink() {
   echo "$1" >> "$GENERATED_NIXFILE"
@@ -87,27 +93,45 @@ f() {
   # Eg.  $1="api_expat_1.0.11_linux.tar.gz"
   p=$(sed "s/\(.*\)_\(.*\)_.*tar.gz/\1/" <<<"$1") # | sed "s/_/\//g"`  # eg. p="api_expat"
   v=$(sed "s/\(.*\)_\(.*\)_.*tar.gz/\2/" <<<"$1")  # eg. v="1.0.11"
+  platform=$(sed "s/.*_.*_\(.*\)\.tar.gz/\1/" <<<"$1")  # eg. platform="linux64"
   h=$(nix-prefetch-url "$URL$1")
 
   sink "  \"$p\" = buildJAddonJAL { "
   sink "    name = \"$p\";"
   sink "    version = \"$v\";"
+  sink "    platform = \"$platform\";"
   sink "    sha256 = \"$h\";"
   sink "  };"
 }
 
 echo "$HEADER" > "$GENERATED_NIXFILE"
-sink "\"Linux\" = {"
+
+sink "\"linux64\" = {"
+echo "$latest_linux64_tarballs" | sed 's/ /\n/g' | while read -r p; do
+  # echo "$p"
+  f "$p"
+done
+sink "};"
+
+sink "\"linux\" = {"
 echo "$latest_linux_tarballs" | sed 's/ /\n/g' | while read -r p; do
   # echo "$p"
   f "$p"
 done
 sink "};"
 
-sink "\"Darwin\" = {"
+sink "\"darwin64\" = {"
+echo "$latest_darwin64_tarballs" | sed 's/ /\n/g' | while read -r p; do
+  # echo "$p"
+  f "$p"
+done
+sink "};"
+
+sink "\"darwin\" = {"
 echo "$latest_darwin_tarballs" | sed 's/ /\n/g' | while read -r p; do
   # echo "$p"
   f "$p"
 done
 sink "};"
+
 sink "$FOOTER"

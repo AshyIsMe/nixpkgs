@@ -1,10 +1,8 @@
 { stdenv, lib, fetchurl }:
 
-attrs@{ name, version, sha256, ... }:
+attrs@{ name, version, platform, sha256, ... }:
 
-let
-  platform = lib.toLower stdenv.hostPlatform.uname.system; # "darwin" or "linux"
-in stdenv.mkDerivation {
+stdenv.mkDerivation {
   name = name;
   src = fetchurl {
     # eg. https://www.jsoftware.com/jal/j901/addons/api_gles_1.0.31_linux.tar.gz

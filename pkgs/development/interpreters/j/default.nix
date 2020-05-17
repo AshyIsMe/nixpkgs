@@ -1,9 +1,7 @@
 { stdenv, lib, fetchFromGitHub, readline, libedit, bc, pkgs, callPackage
-, avxSupport ? false
-, withAddons ? [ ]
-# use withExtraLibs to add additional dependencies of community modules
-, withExtraLibs ? [ ]
-, withCommunityAddons ? [ ] }:
+, avxSupport ? false, withAddons ? [ ]
+  # use withExtraLibs to add additional dependencies of community modules
+, withExtraLibs ? [ ], withCommunityAddons ? [ ] }:
 
 let
 
@@ -13,7 +11,6 @@ let
   # TODO: Handle the withAddons/withExtraLibs/withCommunityAddons arguments
   # TODO: Declare various j/jal versions similar to python38, python39 etc
 
-
   # Collect all addons propagatedBuildInputs in to the j package
   #  #github:cdburke/data_sqlite
   # data_sqlite = buildJAddonGitHub {
@@ -22,9 +19,22 @@ let
   #   rev = "331e04b7a357d47284adb71cc38bcbc563572f43";
   #   sha256 = "0kahwwvrd1aksbr5wk7jqq2zsfr20brzflka24iqqmqqf2995p77";
   #   propagatedBuildInputs = with pkgs; [ sqlite ];
-  # };
+  # }; 
 
-  jal901 = (callPackage ./jal901.nix {}).${stdenv.hostPlatform.uname.system};
+  platform = if stdenv.isLinux then
+    "linux"
+  else if stdenv.isDarwin then
+    "darwin"
+  else
+    "unknown";
+  #else if (stdenv.isAarch32 || stdenv.isAarch64) then
+  #"raspberry" # does not seem to be a jal download option
+
+  jal901 = if stdenv.isx86_64 then
+    (callPackage ./jal901.nix { }).${platform}
+    // (callPackage ./jal901.nix { }).${lib.concatStrings [ platform "64" ]}
+  else
+    (callPackage ./jal901.nix { }).${platform};
   # jal807 = (callPackage ./jal807.nix).${stdenv.hostPlatform.uname.system};
 
 in stdenv.mkDerivation rec {
@@ -51,7 +61,7 @@ in stdenv.mkDerivation rec {
     "unknown";
   variant = if stdenv.isx86_64 && avxSupport then "avx" else "";
 
-  j64x="j${bits}${variant}";
+  j64x = "j${bits}${variant}";
 
   doCheck = true;
 
@@ -97,9 +107,8 @@ in stdenv.mkDerivation rec {
       package="${builtins.elemAt (lib.splitString "_" n) 1}"
       mkdir -p "$out/share/j/addons/$category"
       cp -r ${v}/addons/$category/$package "$out/share/j/addons/$category/$package"
-      '')
-      jal901;
-  in lib.concatStringsSep "\n" ([install] ++ cmds);
+    '') jal901;
+  in lib.concatStringsSep "\n" ([ install ] ++ cmds);
 
   meta = with stdenv.lib; {
     description = "J programming language, an ASCII-based APL successor";
