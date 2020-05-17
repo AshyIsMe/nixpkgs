@@ -52,6 +52,7 @@ in stdenv.mkDerivation rec {
   };
 
   buildInputs = [ readline libedit bc ];
+  propagatedBuildInputs = withExtraLibs;
   bits = if stdenv.is64bit then "64" else "32";
   platform = if (stdenv.isAarch32 || stdenv.isAarch64) then
     "raspberry"
