@@ -1,5 +1,5 @@
 { stdenv, lib, fetchFromGitHub, readline, libedit, bc, pkgs, callPackage
-, avxSupport ? false, withAddons ? [ ]
+, avxSupport ? false, withJAL ? true
   # use withExtraLibs to add additional dependencies of community modules
 , withExtraLibs ? [ ], withCommunityAddons ? [ ] }:
 
@@ -36,6 +36,8 @@ let
   else
     (callPackage ./jal901.nix { }).${platform};
   # jal807 = (callPackage ./jal807.nix).${stdenv.hostPlatform.uname.system};
+
+  jal = jal901; # Current latest stable version
 
 in stdenv.mkDerivation rec {
   pname = "j";
@@ -107,8 +109,11 @@ in stdenv.mkDerivation rec {
       package="${builtins.elemAt (lib.splitString "_" n) 1}"
       mkdir -p "$out/share/j/addons/$category"
       cp -r ${v}/addons/$category/$package "$out/share/j/addons/$category/$package"
-    '') jal901;
-  in lib.concatStringsSep "\n" ([ install ] ++ cmds);
+    '') jal;
+  in if withJAL then
+    lib.concatStringsSep "\n" ([ install ] ++ cmds)
+  else
+    install;
 
   meta = with stdenv.lib; {
     description = "J programming language, an ASCII-based APL successor";
