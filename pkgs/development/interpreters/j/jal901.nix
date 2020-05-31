@@ -1,7 +1,7 @@
 
-/* pkgs/development/interpreters/j/jal901.nix is an auto-generated file -- DO NOT EDIT!
+/* pkgs/development/interpreters/j/jal901-1.nix is an auto-generated file -- DO NOT EDIT!
 Regenerate it with:
-nixpkgs$ ./maintainers/scripts/generate-jal-addons.sh 901 pkgs/development/interpreters/j/jal901.nix
+nixpkgs$ ./maintainers/scripts/generate-jal-addons.sh 901 pkgs/development/interpreters/j/jal901-1.nix
 These packages are manually refined in jaddons-overrides.nix
 */
 {callPackage}:
@@ -55,9 +55,9 @@ in {
   };
   "data_jd" = buildJAddonJAL { 
     name = "data_jd";
-    version = "4.4.81";
+    version = "4.4.83";
     platform = "linux64";
-    sha256 = "0j661hhxp42vyqmjdi3430788x30jwg7xnrh6lhk9hq930ll6rk1";
+    sha256 = "1gdnd2bmx5klw9vmrxcvmpszacrnn1pvvfd474wc23ag2890zivc";
   };
   "data_jfiles" = buildJAddonJAL { 
     name = "data_jfiles";
@@ -627,9 +627,9 @@ in {
   };
   "games_bagofnouns" = buildJAddonJAL { 
     name = "games_bagofnouns";
-    version = "1.0.86";
+    version = "1.0.92";
     platform = "linux";
-    sha256 = "0fvjb9xmvqp3mz8hqmhn5d0dgcif5yawa4zn27cj4khn0lfxsi0l";
+    sha256 = "13vxaw083nn3lbj3mvbn7nf4ahm5pmp3i6d65bfqyv70j63q3sxp";
   };
   "games_minesweeper" = buildJAddonJAL { 
     name = "games_minesweeper";
@@ -1061,9 +1061,9 @@ in {
 "darwin64" = {
   "data_jd" = buildJAddonJAL { 
     name = "data_jd";
-    version = "4.4.81";
+    version = "4.4.83";
     platform = "darwin64";
-    sha256 = "1ibns1fhcsyj0g5x2sw58ybx3kjh47ial5xc0khn2d7mmfsi2y5d";
+    sha256 = "0psrv45x8kjx41x4rhz2kdgvddsn2v4xsgf5hijwwpaavn9lhyaa";
   };
   "data_jfiles" = buildJAddonJAL { 
     name = "data_jfiles";
@@ -1633,9 +1633,9 @@ in {
   };
   "games_bagofnouns" = buildJAddonJAL { 
     name = "games_bagofnouns";
-    version = "1.0.86";
+    version = "1.0.92";
     platform = "darwin";
-    sha256 = "0c0v1hi2lgkz73bfbkcsww26ifvnmv5gmn4j4jyrqaf1q8z67pc4";
+    sha256 = "0lh0rgm6z9i8mf64izzbryi17fyl34ahlv4lyf48k8qjqjjm84im";
   };
   "games_minesweeper" = buildJAddonJAL { 
     name = "games_minesweeper";
