@@ -1,5 +1,5 @@
 { stdenv, lib, fetchFromGitHub, readline, libedit, bc, pkgs, callPackage
-, avxSupport ? false, withJAL ? true
+, avxSupport ? false, withJAL ? true, withJQT ? true
   # use withExtraLibs to add additional dependencies of community modules
 , withExtraLibs ? [ ], withCommunityAddons ? [ ] }:
 
@@ -38,6 +38,8 @@ let
   # jal807 = (callPackage ./jal807.nix).${stdenv.hostPlatform.uname.system};
 
   jal = jal901; # Current latest stable version
+
+  jqt = callPackage ./jqt.nix { };
 
 in stdenv.mkDerivation rec {
   pname = "j";
@@ -105,16 +107,19 @@ in stdenv.mkDerivation rec {
       cp -r $JLIB/{addons,system} "$out/share/j"
       cp -r $JLIB/bin "$out"
     '';
-    cmds = lib.mapAttrsToList (n: v: ''
+    install_jqt = if withJQT then ''
+      cp ${jqt}/bin/* "$out/bin"
+    '' 
+    else "";
+    install_jal = if withJAL then lib.mapAttrsToList (n: v: ''
       category="${builtins.elemAt (lib.splitString "_" n) 0}"
       package="${builtins.elemAt (lib.splitString "_" n) 1}"
       mkdir -p "$out/share/j/addons/$category"
       cp -r ${v}/addons/$category/$package "$out/share/j/addons/$category/$package"
-    '') jal;
-  in if withJAL then
-    lib.concatStringsSep "\n" ([ install ] ++ cmds)
-  else
-    install;
+    '') jal 
+    else "";
+  in 
+    lib.concatStringsSep "\n" ([ install install_jqt] ++ install_jal);
 
   meta = with stdenv.lib; {
     description = "J programming language, an ASCII-based APL successor";
