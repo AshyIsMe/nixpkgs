@@ -23,8 +23,8 @@ in stdenv.mkDerivation rec {
   src = fetchFromGitHub {
     owner = "jsoftware";
     repo = "qtide";
-    rev = "v1.7.10";
-    sha256 = "0hj0ip99mi9mbs01jy22m91da1cnlyfl89pcx6kc7kj3f4mp069x";
+    rev = "10f3593a5feee3920a9d877f7e3652678762d8e1";
+    sha256 = "0jhhgqahnrkpsibjclx18w81cyj0qj9b47zqf6km3jblicnc4m2r";
   };
 
   #buildInputs = [];
